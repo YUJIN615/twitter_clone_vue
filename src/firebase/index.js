@@ -19,4 +19,10 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const storage = firebase.storage();
+
+// 파이어베이스 데이터베이스에서 컬렉션 가져오기
 export const USER_COLLECTION = db.collection("users");
+export const TWEET_COLLECTION = db.collection("tweets");
+export const COMMENT_COLLECTION = db.collection("comments");
+export const RETWEET_COLLECTION = db.collection("retweets");
+export const LIKE_COLLECTION = db.collection("likes");

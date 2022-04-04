@@ -23,27 +23,11 @@
             <img
               src="http://picsum.photos/130"
               alt=""
-              class="
-                w-130
-                h-130
-                rounded-full
-                border-white border-4
-                mt-[-75px]
-                cursor-pointer
-              "
+              class="w-130 h-130 rounded-full border-white border-4 mt-[-75px] cursor-pointer"
             />
             <div class="">
               <button
-                class="
-                  px-4
-                  py-2
-                  rounded-full
-                  border border-gray-300
-                  mt-3
-                  text-sm
-                  font-bold
-                  hover:bg-gray-200
-                "
+                class="px-4 py-2 rounded-full border border-gray-300 mt-3 text-sm font-bold hover:bg-gray-200"
               >
                 프로필 수정
               </button>
@@ -62,23 +46,11 @@
         </div>
         <!-- 탭 버튼 -->
         <ul
-          class="
-            flex
-            justify-between
-            mt-5
-            border-b border-gray-100
-            text-gray-700
-          "
+          class="flex justify-between mt-5 border-b border-gray-100 text-gray-700"
         >
           <li class="flex-1">
             <button
-              class="
-                w-full
-                py-4
-                hover:bg-gray-200
-                font-bold
-                border-b border-primary
-              "
+              class="w-full py-4 hover:bg-gray-200 font-bold border-b border-primary"
             >
               트윗
             </button>

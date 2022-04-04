@@ -10,36 +10,14 @@
       type="text"
       title="이메일"
       placeholder="이메일"
-      class="
-        border border-gray-300
-        w-4/5
-        py-2
-        px-3
-        mb-4
-        rounded
-        text-gray-600
-        font-bold
-        text-sm
-        focus:ring-2 focus:border-primary focus:outline-none
-      "
+      class="border border-gray-300 w-4/5 py-2 px-3 mb-4 rounded text-gray-600 font-bold text-sm focus:ring-2 focus:border-primary focus:outline-none"
       v-model="email"
     />
     <input
       type="password"
       title="비밀번호"
       placeholder="비밀번호"
-      class="
-        border border-gray-300
-        w-4/5
-        py-2
-        px-3
-        mb-4
-        rounded
-        text-gray-600
-        font-bold
-        text-sm
-        focus:ring-2 focus:border-primary focus:outline-none
-      "
+      class="border border-gray-300 w-4/5 py-2 px-3 mb-4 rounded text-gray-600 font-bold text-sm focus:ring-2 focus:border-primary focus:outline-none"
       v-model="password"
       @keyup.enter="onLogin"
     />
@@ -52,16 +30,7 @@
     </button>
     <button
       v-else
-      class="
-        bg-primary
-        text-white
-        rounded-full
-        py-3
-        w-4/5
-        block
-        mx-auto
-        hover:bg-dark
-      "
+      class="bg-primary text-white rounded-full py-3 w-4/5 block mx-auto hover:bg-dark"
       @click="onLogin"
     >
       로그인
@@ -75,8 +44,9 @@
 
 <script>
 import { ref } from "vue";
-import { auth } from "../firebase";
+import { auth, USER_COLLECTION } from "../firebase";
 import { useRouter } from "vue-router";
+import store from "../store";
 
 export default {
   setup() {
@@ -86,16 +56,30 @@ export default {
     const router = useRouter();
 
     const onLogin = async () => {
+      // 유효성 검사
+      if (!email.value || !password.value) {
+        alert("이메일, 비밀번호를 모두 입력해주세요.");
+        return;
+      }
+
       try {
+        // 로딩중 아이콘 활성화
         isLoading.value = true;
+        // 유저 정보 가져와서 로그인하기
         const { user } = await auth.signInWithEmailAndPassword(
           email.value,
           password.value
         );
-        console.log(user.uid);
+
+        // 사용자 정보 가져오기
+        const doc = await USER_COLLECTION.doc(user.uid).get();
+        // 가져온 사용자 정보 저장하기
+        store.commit("SET_USER", doc.data());
+
+        // 로그인 후에 뒤도가기 해서 로그인 페이지 못가게 함
         router.replace("/");
       } catch (e) {
-        console.log(e);
+        // 유효성 검사
         switch (e.code) {
           case "auth/invalid-email":
             alert("잘못된 이메일 형식입니다.");
@@ -108,6 +92,7 @@ export default {
             break;
           default:
             alert(e.message);
+            console.log(e);
             break;
         }
       } finally {
