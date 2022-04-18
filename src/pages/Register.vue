@@ -86,8 +86,9 @@ export default {
           email: email.value,
           username: username.value,
           profile_image_url: "/profile.jpeg",
+          background_image_url: "/bg.png",
           num_tweets: 0,
-          follwers: [],
+          followers: [],
           followings: [],
           created_at: Date.now(),
         });

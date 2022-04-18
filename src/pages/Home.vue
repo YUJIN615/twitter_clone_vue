@@ -12,7 +12,7 @@
               <img
                 :src="currentUser.profile_image_url"
                 alt=""
-                class="w-12 h-12 rounded-full cursor-pointer hover:opacity-80"
+                class="w-12 h-12 rounded-full cursor-pointer hover:opacity-80 object-cover"
               />
               <textarea
                 placeholder="무슨 일이 일어나고 있나요?"
@@ -80,7 +80,7 @@ import AppTrends from "@/components/AppTrends.vue";
 import AppTweets from "@/components/AppTweets.vue";
 import { ref, computed, onBeforeMount } from "vue";
 import store from "@/store";
-import { TWEET_COLLECTION, USER_COLLECTION } from "@/firebase";
+import { TWEET_COLLECTION } from "@/firebase";
 import addTweet from "@/utils/addTweet";
 import getTweetInfo from "@/utils/getTweetInfo";
 

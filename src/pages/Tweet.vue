@@ -7,17 +7,17 @@
         <div class="flex items-center px-3 py-2 border-b border-gray-100">
           <button @click="router.go(-1)">
             <i
-              class="fas fa-arrow-left text-primary text-lg ml-3 hover:bg-blue-50 p-2 rounded-full h-10 w-10"
+              class="fas fa-arrow-left text-primary text-lg ml-1 hover:bg-blue-50 p-2 rounded-full h-10 w-10"
             ></i>
-            <span class="font-bold text-lg ml-10">트윗</span>
           </button>
+          <span class="font-bold text-lg ml-7">트윗</span>
         </div>
         <!-- 트윗 프로필 -->
         <div class="px-4 py-3 flex">
           <img
             :src="tweet.profile_image_url"
             alt=""
-            class="w-10 h-10 rounded-full hover:opacity-90 cursor-pointer"
+            class="w-10 h-10 rounded-full hover:opacity-90 cursor-pointer object-cover"
           />
           <div class="ml-3">
             <span class="block font-bold">{{ tweet.email }}</span>
@@ -89,39 +89,37 @@
           </button>
         </div>
         <!-- 코멘트 -->
-        <div v-if="isShowComment">
-          <div
-            class="px-4 py-3 flex hover:bg-gray-100 cursor-pointer border-b border-gray-100"
-            v-for="comment in comments"
-            :key="comment"
-          >
-            <img
-              :src="comment.profile_image_url"
-              alt=""
-              class="w-10 h-10 rounded-full mr-2 hover:opacity-90 cursor-pointer"
-            />
-            <div class="flex-1">
-              <span class="font-bold">{{ comment.email }}</span>
-              <span class="text-gray-500 text-sm ml-2"
-                >@{{ comment.username }}</span
-              >
-              <span class="text-gray-800 text-sm ml-2">
-                {{ moment(comment.created_at).fromNow() }}
-              </span>
-              <div class="text-black">
-                {{ comment.comment_tweet_body }}
-              </div>
-            </div>
-            <!-- 코멘트 삭제 버튼 -->
-            <button
-              v-if="comment.uid === currentUser.uid"
-              @click="handleDeleteComment(comment)"
+        <div
+          class="px-4 py-3 flex hover:bg-gray-100 cursor-pointer border-b border-gray-100"
+          v-for="comment in comments"
+          :key="comment"
+        >
+          <img
+            :src="comment.profile_image_url"
+            alt=""
+            class="w-10 h-10 rounded-full mr-2 hover:opacity-90 cursor-pointer object-cover"
+          />
+          <div class="flex-1">
+            <span class="font-bold">{{ comment.email }}</span>
+            <span class="text-gray-500 text-sm ml-2"
+              >@{{ comment.username }}</span
             >
-              <i
-                class="fas fa-trash text-gray-400 w-10 h-10 text-sm hover:text-gray-500"
-              ></i>
-            </button>
+            <span class="text-gray-800 text-sm ml-2">
+              {{ moment(comment.created_at).fromNow() }}
+            </span>
+            <div class="text-black">
+              {{ comment.comment_tweet_body }}
+            </div>
           </div>
+          <!-- 코멘트 삭제 버튼 -->
+          <button
+            v-if="comment.uid === currentUser.uid"
+            @click="handleDeleteComment(comment)"
+          >
+            <i
+              class="fas fa-trash text-gray-400 w-10 h-10 text-sm hover:text-gray-500"
+            ></i>
+          </button>
         </div>
       </div>
 
@@ -161,7 +159,6 @@ export default {
     const comments = ref([]);
     const currentUser = computed(() => store.state.user);
     let isShowCommentModal = ref(false);
-    let isShowComment = ref(false);
 
     const handleDeleteComment = async (comment) => {
       if (confirm("코멘트를 삭제하시겠습니까?")) {
@@ -182,10 +179,10 @@ export default {
         const t = await getTweetInfo(doc.data(), currentUser.value);
         tweet.value = t;
 
-        // snapshot을 이용해서 바뀐 snapshot을 반복문으로 돌린다.
-        // orderBy로 작성날짜 기준 내림차순이 되도록 한다.
-        COMMENT_COLLECTION.orderBy("created_at", "desc").onSnapshot(
-          (snapshot) => {
+        // 코멘트 불러오기
+        COMMENT_COLLECTION.where("from_tweet_id", "==", tweet.value.id)
+          .orderBy("created_at", "desc")
+          .onSnapshot((snapshot) => {
             snapshot.docChanges().forEach(async (change) => {
               // 유저 정보를 비동기로 가져왔으므로 여기도 비동기로 처리해야 한다.
               let comment = await getTweetInfo(
@@ -204,14 +201,8 @@ export default {
               } else if (change.type === "removed") {
                 comments.value.splice(change.oldIndex, 1);
               }
-
-              // 코멘트가 해당 트윗의 코멘트인지 확인
-              if (tweet.value.id === comment.from_tweet_id) {
-                isShowComment.value = true;
-              }
             });
-          }
-        );
+          });
       });
     });
 
@@ -225,7 +216,6 @@ export default {
       handleRetweet,
       handleLikes,
       handleDeleteComment,
-      isShowComment,
     };
   },
 };

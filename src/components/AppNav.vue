@@ -52,7 +52,7 @@
         <img
           :src="currentUser.profile_image_url"
           alt=""
-          class="w-10 h-10 rounded-full"
+          class="w-10 h-10 rounded-full object-cover"
         />
         <div class="ml-2 hidden lg:block">
           <p class="text-sm font-bold">{{ currentUser.email }}</p>
@@ -70,7 +70,7 @@
           <img
             :src="currentUser.profile_image_url"
             alt=""
-            class="w-10 h-10 rounded-full"
+            class="w-10 h-10 rounded-full object-cover"
           />
         </button>
       </div>
@@ -86,7 +86,7 @@
         <img
           :src="currentUser.profile_image_url"
           alt=""
-          class="w-10 h-10 rounded-full"
+          class="w-10 h-10 rounded-full object-cover"
         />
         <div class="ml-2 hidden lg:block">
           <p class="text-sm font-bold">{{ currentUser.email }}</p>
