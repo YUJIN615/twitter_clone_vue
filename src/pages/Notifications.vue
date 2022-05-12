@@ -58,8 +58,8 @@ export default {
     onBeforeMount(() => {
       // 현재 유저의 팔로잉 배열에 있는 값 돌리기
       currentUser.value.followings.forEach(async (following) => {
-        // 최근 일주일의 트윗만 가져오기
-        const dateForm = Date.now() - 60 * 60 * 24 * 7 * 1000;
+        // 최근 한달간 트윗만 가져오기
+        const dateForm = Date.now() - 60 * 60 * 24 * 30 * 1000;
 
         // 팔로잉과 uid가 일치하는 값 가져오기
         const snapshot = await TWEET_COLLECTION.where(
