@@ -203,8 +203,8 @@ export default {
       TWEET_COLLECTION.where("uid", "==", profileUID)
         .orderBy("created_at", "desc")
         .onSnapshot((snapshot) => {
+          console.log(snapshot);
           snapshot.docChanges().forEach(async (change) => {
-            console.log(change);
             // 유저 정보를 비동기로 가져왔으므로 여기도 비동기로 처리해야 한다.
             let tweet = await getTweetInfo(
               change.doc.data(),
@@ -228,8 +228,9 @@ export default {
 
       // 현재 유저가 리트윗한 트윗 가져오기
       RETWEET_COLLECTION.where("uid", "==", profileUID)
-        .orderBy("created_at", "desc")
+        // .orderBy("created_at", "desc")
         .onSnapshot((snapshot) => {
+          console.log(profileUID);
           console.log(snapshot);
           snapshot.docChanges().forEach(async (change) => {
             console.log(change);
@@ -257,7 +258,7 @@ export default {
 
       // 현재 유저가 좋아요한 트윗 가져오기
       LIKE_COLLECTION.where("uid", "==", profileUID)
-        .orderBy("created_at", "desc")
+        // .orderBy("created_at", "desc")
         .onSnapshot((snapshot) => {
           snapshot.docChanges().forEach(async (change) => {
             // 트윗 바디의 내용을 가져오기 위해 트윗 아이디를 가져온다.
