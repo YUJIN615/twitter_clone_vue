@@ -50,14 +50,14 @@
         @click="showProfileDropdown()"
       >
         <img
-          :src="currentUser.profile_image_url"
+          :src="currentUser?.profile_image_url"
           alt=""
           class="w-10 h-10 rounded-full object-cover"
         />
         <div class="ml-2 hidden lg:block">
-          <p class="text-sm font-bold">{{ currentUser.email }}</p>
+          <p class="text-sm font-bold">{{ currentUser?.email }}</p>
           <p class="text-xs text-gray-500 text-left">
-            @{{ currentUser.username }}
+            @{{ currentUser?.username }}
           </p>
         </div>
         <i class="fas fa-ellipsis-h fa-fw text-xs ml-auto hidden lg:block"></i>
@@ -68,7 +68,7 @@
       >
         <button>
           <img
-            :src="currentUser.profile_image_url"
+            :src="currentUser?.profile_image_url"
             alt=""
             class="w-10 h-10 rounded-full object-cover"
           />
@@ -84,14 +84,14 @@
         class="hidden lg:flex bg-gray-50 w-full h-12 px-2 py-1 rounded-full text-base hover:bg-gray-100 items-center"
       >
         <img
-          :src="currentUser.profile_image_url"
+          :src="currentUser?.profile_image_url"
           alt=""
           class="w-10 h-10 rounded-full object-cover"
         />
         <div class="ml-2 hidden lg:block">
-          <p class="text-sm font-bold">{{ currentUser.email }}</p>
+          <p class="text-sm font-bold">{{ currentUser?.email }}</p>
           <p class="text-xs text-gray-500 text-left">
-            @{{ currentUser.username }}
+            @{{ currentUser?.username }}
           </p>
         </div>
         <i
@@ -99,7 +99,7 @@
         ></i>
       </button>
       <button class="py-3 px-4 text-xs text-gray-600" @click="onLogout()">
-        @{{ currentUser.username }} 계정에서 로그아웃
+        @{{ currentUser?.username }} 계정에서 로그아웃
       </button>
     </div>
   </nav>
