@@ -110,6 +110,8 @@ router.beforeEach((to, from, next) => {
   // 이동하려는 페이지의 matched 배열에 requireAuth가 있으면 true
   // record는 matched 배열의 요소 하나하나
   const requireAuth = to.matched.some((record) => record.meta.requireAuth);
+  console.log('requireAuth', requireAuth);
+  console.log('!currentUser', !currentUser);
   // requireAuth가 없고 현재 유재 정보가 없다면 로그인 페이지로 이동
   if (requireAuth && !currentUser) next("/login");
   //authenticated
