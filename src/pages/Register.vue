@@ -86,7 +86,7 @@ export default {
           email: email.value,
           username: username.value,
           profile_image_url: "@/assets/img/profile.jpeg",
-          background_image_url: "@/assets/img//bg.png",
+          background_image_url: "@/assets/img/bg.png",
           num_tweets: 0,
           followers: [],
           followings: [],
