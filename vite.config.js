@@ -13,5 +13,5 @@ export default defineConfig({
   server: {
     host: true,
   },
-  base: "/twitter_clone_vue/"
+  // base: "/twitter_clone_vue/"
 });
