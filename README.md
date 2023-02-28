@@ -1,6 +1,15 @@
 # vue_twitter clone coding
 ## 실행 방법
 ```npm run dev``` 실행 후 http://localhost:3000/ 접속
+아이디: test@test.com / 비밀번호: test123 으로 로그인 후 확인 가능합니다.
+또는 회원가입 후 로그인해서 테스트 하실 수 있습니다.
+
+## 기술 스택
+Vue3
+Vite
+Firebase
+tailwind
+
 
 ## 페이지
 - 회원가입
